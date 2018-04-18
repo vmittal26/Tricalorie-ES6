@@ -1,0 +1,20 @@
+{
+  "name": "calorietracker",
+  "version": "1.0.0",
+  "description": "Calorie Tracker",
+  "main": "app.js",
+  "scripts": {
+    "watch:sass": "node-sass sass/main.scss css/styles.css -w",
+    "devserver": "live-server",
+    "start": "npm-run-all --parallel devserver watch:sass"
+  },
+  "author": "Vaibhav",
+  "license": "MIT",
+  "dependencies": {
+    "node-sass": "^4.8.3"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.0",
+    "npm-run-all": "^4.1.2"
+  }
+}

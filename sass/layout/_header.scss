@@ -1,0 +1,22 @@
+.header{
+    background-color: $color-primary;
+    &__nav-bar{
+            display:flex;            
+            text-transform: uppercase;
+            padding: 1rem 0;
+            align-items:center;
+            a{
+                text-decoration: none;
+                display: inline-block;
+                color:#fff;
+                font-size: 2rem;
+            }
+        }
+    &__clear-btn{
+        background-color: $color-primary;
+        margin-left:auto;
+        &:hover{
+            background-color: lighten($color-primary,5%);
+        }
+    }
+}

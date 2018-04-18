@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <title>Tracaloire</title>
+</head>
+<body>
+        <header class="header">
+            <div class="container">
+                    <nav class="header__nav-bar">
+                            <a href="#">Tracalorie</a>
+                            <button class="header__clear-btn btn">Clear All</button>
+                        </nav>
+            </div>
+           
+        </header>
+        <main>
+            <div class="container">
+                <div class="card">
+                    <h1 class="card__heading">Add Meal/Food Item</h1>
+                    <form class="form card__meal-form ">
+                        <div class="form__control">
+                                <label for="add-item" class="form__label">Add Meal</label>
+                                <input class="form__input" type="text" name="Meal" id="add-item" placeholder="Meal">
+                        </div>
+                          <div class="form__control">
+                                <label for="calorie" class="form__label">Add Calorie</label>
+                                <input class="form__input" type="text" name="Calorie" id="calorie" placeholder="Calorie">
+                          </div> 
+                    </form>
+                    <button class="card__add-meal btn">Add Meal</button>
+                </div>
+            </div>
+            <div class="container">
+                <div class="meal-item-container">
+                    <ul class="list">
+                        <li class="list__item">1 <span><i class="fa fa-trash icon"></i></span></li>
+                        <li class="list__item">2 <span><i class="fa fa-trash icon"></i></span></li>
+                        <li class="list__item">3 <span><i class="fa fa-trash icon"></i></span></li>
+                        <li class="list__item">4 <span><i class="fa fa-trash icon"></i></span></li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+</body>
+</html>
