@@ -21,7 +21,7 @@ var UIController = (function(){
            const list = $(DOMElementAccessor.itemlist);
            const totalCalorieElement = $(DOMElementAccessor.totalCalorie);
            if(!list.classList.contains('list'))list.classList.add('list');
-           const html = `<li class="list__item"><strong>${mealItem.itemName}:</strong> <em>${mealItem.calories} Calories</em><span><i class="fas fa-trash icon"></i></span></li>`
+           const html = `<li id ="${mealItem.id}" class="list__item"><strong>${mealItem.itemName}:</strong> <em>${mealItem.calories} Calories</em><span><i parent-id="${mealItem.id}" class="fas fa-trash icon"></i></span></li>`
            list.insertAdjacentHTML('beforeend',html);
            totalCalorieElement.innerHTML = `<strong>Total Calories:</strong>${totalCalorie}`;
            this.clearInputFields();
@@ -38,6 +38,11 @@ var UIController = (function(){
             }else{
                 return true;
             }
+        },
+        removeListItem:function(element){
+            let accessor = element.getAttribute("parent-id");
+            document.getElementById(accessor).remove();
+            $(DOMElementAccessor.itemlist).classList.remove('list');
         }
     }
 })();
@@ -84,6 +89,7 @@ var AppController = (function(){
     setEventListeners = function(){
         const DOMElementAccessor = UIController.getDOMAccessors();
         const form = $(DOMElementAccessor.mealForm);
+        const ul = $(DOMElementAccessor.itemlist);
         form.addEventListener('submit',function(e){
             if(UIController.checkIfformIsEmpty()){
                 console.log(UIController.getInput());
@@ -92,6 +98,13 @@ var AppController = (function(){
                 UIController.showItem(data.currentItem,data.totalCalorie);
             }
             e.preventDefault();
+        });
+
+        ul.addEventListener('click',function(event){
+                if(event.target.getAttribute("parent-id")){
+                    UIController.removeListItem(event.target);
+                  
+                }
         });
     }
     return {
