@@ -13,8 +13,4 @@
     &__meal-form{
         padding:1rem 0;
     }
-    &__add-meal{    
-        @include button-color($color-primary,0%);
-        margin:1rem 0;
-    }
 }

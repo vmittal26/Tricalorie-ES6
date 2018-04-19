@@ -86,12 +86,14 @@ html {
   cursor: pointer;
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.3);
   transition: all 0.2s;
-  outline: none; }
+  outline: none;
+  background: #00d3d6; }
   .btn:active {
     transform: translateY(0.2rem);
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3); }
   .btn:hover {
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3); }
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
+    background: darkturquoise; }
 
 .card {
   max-width: 80rem;
@@ -106,11 +108,6 @@ html {
     align-self: auto; }
   .card__meal-form {
     padding: 1rem 0; }
-  .card__add-meal {
-    background-color: #00d3d6;
-    margin: 1rem 0; }
-    .card__add-meal:hover {
-      background-color: #00d3d6; }
 
 .list {
   list-style: none;
