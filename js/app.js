@@ -24,7 +24,7 @@ var UIController = (function(){
            if(!list.classList.contains('list'))list.classList.add('list');
            const html = `<li class="list__item"><strong>${mealItem.itemName}:</strong> <em>${mealItem.calories} Calories</em><span><i class="fas fa-trash icon"></i></span></li>`
            list.insertAdjacentHTML('beforeend',html);
-           totalCalorieElement.innerHTML = `<strong>Total Calories :</strong>${totalCalorie}`;
+           totalCalorieElement.innerHTML = `<strong>Total Calories:</strong>${totalCalorie}`;
            this.clearInputFields();
         },
         clearInputFields:function(){
