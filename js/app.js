@@ -1,4 +1,3 @@
-
 //UIController
 var UIController = (function(){
     var DOMElementAccessor = {
