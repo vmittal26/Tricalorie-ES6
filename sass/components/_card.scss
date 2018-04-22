@@ -13,4 +13,10 @@
     &__meal-form{
         padding:1rem 0;
     }
+    &__buttons{
+        padding:4rem 0;
+        width:100%;
+        display: flex;
+        justify-content: space-between;
+    }
 }

@@ -5,7 +5,10 @@ var UIController = (function(){
             calorie:"#calorie",
             mealForm:"#mealForm",
             itemlist:"#itemList",
-            totalCalorie:'#totalCalorie'
+            totalCalorie:'#totalCalorie',
+            updateButton:'#updateMeal',
+            backButton:'#back',
+            addMeal:'#addMeal'
     }
     return {
         getDOMAccessors:function(){
@@ -51,6 +54,16 @@ var UIController = (function(){
         },
         removeListItem:function(id){
             $(id).remove();
+        },
+        hideEditState:function(){
+            $(DOMElementAccessor.addMeal).style.display='inline-block';
+            $(DOMElementAccessor.updateButton).style.display='none';
+            $(DOMElementAccessor.backButton).style.display='none';
+        },
+        showEditState:function(){
+            $(DOMElementAccessor.addMeal).style.display='none';
+            $(DOMElementAccessor.updateButton).style.display='inline-block';
+            $(DOMElementAccessor.backButton).style.display='inline-block';
         }
     }
 })();
@@ -111,6 +124,7 @@ var AppController = (function(){
         const DOMElementAccessor = UIController.getDOMAccessors();
         const form = $(DOMElementAccessor.mealForm);
         const ul = $(DOMElementAccessor.itemlist);
+        const backButton = $(DOMElementAccessor.backButton);
         form.addEventListener('submit',function(e){
             if(UIController.checkIfformIsEmpty()){
                
@@ -123,24 +137,30 @@ var AppController = (function(){
 
         ul.addEventListener('click',function(event){
             const attr = event.target.getAttribute("parent-id");
-            const arr = attr.split("-");
-            if(attr && arr[0]==='trash'){
-               UIController.removeListItem('#item-'+arr[1]);
-              
-               const item = MealItemController.removeItem(parseInt(arr[1]));
-               UIController.updateTotalCalorieOnUI(MealItemController.getData().totalCalorie);
-                if(MealItemController.getData().item.length===0){
-                    UIController.hideItemList();
-                }
-            }else if(attr && arr[0]==='edit'){
-                console.log('Edit');
+            
+            if(attr){
+                const arr = attr.split("-");
+                if(arr[0]==='trash'){
+                    UIController.removeListItem('#item-'+arr[1]);
+                    const item = MealItemController.removeItem(parseInt(arr[1]));
+                    UIController.updateTotalCalorieOnUI(MealItemController.getData().totalCalorie);
+                     if(MealItemController.getData().item.length===0){
+                         UIController.hideItemList();
+                     }
+                 }else if(attr && arr[0]==='edit'){
+                     UIController.showEditState();
+                 }
             }
+        });
+        backButton.addEventListener('click',function(){
+            UIController.hideEditState();
         });
     }
     return {
         init:function(){
             console.log('Application started..');
             UIController.hideItemList();
+            UIController.hideEditState();
             setEventListeners();
         }
     }
