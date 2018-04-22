@@ -151,7 +151,8 @@ html {
     padding: 1.5rem; }
     .list__item .icon {
       font-size: 2rem;
-      float: right; }
+      float: right;
+      margin-left: 2rem; }
     .list__item:not(:last-child) {
       border-bottom: 1px solid #00d3d6; }
 
@@ -159,4 +160,5 @@ html {
   max-width: 80rem;
   margin: 2rem auto; }
   .meal-item-container__totalCalorie {
-    text-align: center; }
+    text-align: center;
+    margin-bottom: 1rem; }

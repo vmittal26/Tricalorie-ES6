@@ -19,12 +19,16 @@ var UIController = (function(){
         },
         showItem:function(mealItem,totalCalorie){
            const list = $(DOMElementAccessor.itemlist);
-           const totalCalorieElement = $(DOMElementAccessor.totalCalorie);
-           if(!list.classList.contains('list'))list.classList.add('list');
-           const html = `<li id ="${mealItem.id}" class="list__item"><strong>${mealItem.itemName}:</strong> <em>${mealItem.calories} Calories</em><span><i parent-id="${mealItem.id}" class="fas fa-trash icon"></i></span></li>`
+           list.style.display='block';
+
+           const html = `<li id ="item-${mealItem.id}" class="list__item"><strong>${mealItem.itemName}:</strong> <em>${mealItem.calories} Calories</em><span><i parent-id="trash-${mealItem.id}" class="fas fa-trash icon"></i><i parent-id="edit-${mealItem.id}" class="fas fa-pencil-alt icon"></i></span></li>`
            list.insertAdjacentHTML('beforeend',html);
-           totalCalorieElement.innerHTML = `<strong>Total Calories:</strong>${totalCalorie}`;
+           this.updateTotalCalorieOnUI(totalCalorie);
            this.clearInputFields();
+        },
+        updateTotalCalorieOnUI(totalCalorie){
+            const totalCalorieElement = $(DOMElementAccessor.totalCalorie);
+            totalCalorieElement.innerHTML = `<strong>Total Calories:</strong>${totalCalorie}`;
         },
         clearInputFields:function(){
             $(DOMElementAccessor.mealItem).value="";
@@ -39,10 +43,14 @@ var UIController = (function(){
                 return true;
             }
         },
-        removeListItem:function(element){
-            let accessor = element.getAttribute("parent-id");
-            document.getElementById(accessor).remove();
-            $(DOMElementAccessor.itemlist).classList.remove('list');
+        hideItemList:function(){
+            $(DOMElementAccessor.itemlist).style.display='none';
+        },
+        showListItem:function(){
+            $(DOMElementAccessor.itemlist).style.display='block';
+        },
+        removeListItem:function(id){
+            $(id).remove();
         }
     }
 })();
@@ -79,6 +87,19 @@ var MealItemController = (function(){
 
       getData:function(){
           return data;
+      },
+      updateData:function(){
+
+      },
+      removeItem:function(id){
+        data.item.forEach(function(current,index){
+            if(current.id===id){
+               data.item.splice(index,1);
+               data.totalCalorie -= current.calories;
+               return current;
+            //    this.updateData();
+            }
+        });
       }
   }
 })();
@@ -92,7 +113,7 @@ var AppController = (function(){
         const ul = $(DOMElementAccessor.itemlist);
         form.addEventListener('submit',function(e){
             if(UIController.checkIfformIsEmpty()){
-                console.log(UIController.getInput());
+               
                 MealItemController.addItem(UIController.getInput());
                 let data = MealItemController.getData();
                 UIController.showItem(data.currentItem,data.totalCalorie);
@@ -101,15 +122,25 @@ var AppController = (function(){
         });
 
         ul.addEventListener('click',function(event){
-                if(event.target.getAttribute("parent-id")){
-                    UIController.removeListItem(event.target);
-                  
+            const attr = event.target.getAttribute("parent-id");
+            const arr = attr.split("-");
+            if(attr && arr[0]==='trash'){
+               UIController.removeListItem('#item-'+arr[1]);
+              
+               const item = MealItemController.removeItem(parseInt(arr[1]));
+               UIController.updateTotalCalorieOnUI(MealItemController.getData().totalCalorie);
+                if(MealItemController.getData().item.length===0){
+                    UIController.hideItemList();
                 }
+            }else if(attr && arr[0]==='edit'){
+                console.log('Edit');
+            }
         });
     }
     return {
         init:function(){
             console.log('Application started..');
+            UIController.hideItemList();
             setEventListeners();
         }
     }
